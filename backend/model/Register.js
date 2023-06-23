@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const reg_schema = mongoose.Schema({
-    name: { type: String,required:true},
+    name: { type: String},
     email: { type: String,required:true},
     password: { type: String,required:true},
 
