@@ -7,10 +7,18 @@
     "server": "nodemon server"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.3.1",
+    "node-fetch": "^3.3.1",
     "nodemon": "^2.0.20",
-    "openai": "^3.1.0"
+    "openai": "^3.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
+    "winston": "^3.9.0",
+    "winston-mongodb": "^5.1.1"
   }
 }
