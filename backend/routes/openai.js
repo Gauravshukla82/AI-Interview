@@ -2,7 +2,7 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 import FeedbackModel from '../model/feedback.js'
 import { Configuration, OpenAIApi } from 'openai'
-
+import Validate from '../middleware/auth.js'
 dotenv.config()
 
 const configuration = new Configuration({
@@ -16,7 +16,7 @@ const AIroutes = express()
 AIroutes.use(express.json())
 
 
-AIroutes.post('/feedback', async (req, res) => {
+AIroutes.post('/feedback',Validate, async (req, res) => {
     try {
         const { question, answer, email } = req.body;
 
@@ -43,7 +43,7 @@ AIroutes.post('/feedback', async (req, res) => {
     }
 })
 
-AIroutes.post('/questions', async (req, res) => {
+AIroutes.post('/questions',Validate, async (req, res) => {
     try {
         const { tech, number } = req.body;
 
@@ -78,22 +78,4 @@ AIroutes.get("/allfeedbacks",async(req,res)=>{
         return res.status(500).json(error)
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default AIroutes
