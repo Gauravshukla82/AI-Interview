@@ -1,34 +1,53 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane, faPlay, faStop,faPause } from '@fortawesome/free-solid-svg-icons';
+import Speech from './Speech';
+import axios from 'axios';
 
 const Chat = () => {
-  const [pause,setPause] = useState(false)
+  const [chatMessages, setChatMessages] = useState([]);
+
+  const addMessage = async (message) => {
+    setChatMessages([...chatMessages, { content: message, isUserMessage: true }]);
+    try {
+      // Send a POST request to the backend to get the chat response
+      const response = await axios.post("/backendEndpoint", { message });
+      const chatResponse = response.data.response;
+      // Add the user message and the chat response to the messages
+      setChatMessages([
+        ...chatMessages,
+        { content: message, isUserMessage: true },
+        { content: chatResponse, isUserMessage: false },
+      ]);
+    } catch (error) {
+      console.log("Error getting chat response from backend:", error);
+    }
+  };
+
   return (
     <div className="flex">
+      {/* Sidebar */}
       <div className="w-1/5 h-screen bg-sideBarColor">
-        <h1 className="text-5xl text-white font-signature">Chat</h1>
+        <h1 className="text-3xl text-[#fff] ml-20 mt-5 font-signature">Dashboard</h1>
       </div>
+
+      {/* Chat Window */}
       <div className="w-4/5 h-screen bg-userChatColor">
-        <div className="h-5/6">
-          {/* chats */}
+        <div className="h-5/6 text-[#fff] overflow-y-auto chat-messages">
+          {chatMessages.map((message, index) => (
+            <div key={index} className="flex items-center m-10">
+              <img
+                src="https://cdn3d.iconscout.com/3d/premium/thumb/user-6332708-5209354.png" // Replace with the path to your user logo image
+                alt="User Logo"
+                className="w-8 h-8 mr-2"
+              />
+              <div
+                className={`bg-${message.isUserMessage ? 'aiChat' : 'userChat'}Color py-2 px-4 rounded-lg text-white`}
+              >
+                {message.content}
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="relative bottom-10 m-auto h-52 bg-aiChatColor flex items-center justify-center">
-          <input
-            type="text"
-            placeholder="Send a message"
-            className="w-2/4 h-14 px-4 shadow-2xl bg-userChatColor rounded-md border-solid"
-          />
-          <button className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md">
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </button>
-          <button className="ml-2 px-4 py-2 bg-green-500 text-white rounded-md" onClick={()=>setPause(!pause)}>
-            {pause?<FontAwesomeIcon icon={faPause} />:<FontAwesomeIcon icon={faPlay} />}
-          </button>
-          <button className="ml-2 px-4 py-2 bg-red-500 text-white rounded-md">
-            <FontAwesomeIcon icon={faStop} />
-          </button>
-        </div>
+        <Speech addMessage={addMessage} />
       </div>
     </div>
   );

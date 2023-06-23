@@ -1,54 +1,103 @@
 import SpeechRecognition, {
-    useSpeechRecognition
-  } from "react-speech-recognition";
-  import useClipboard from "react-use-clipboard";
-  import { useState } from "react";
-  
-  const Speech = () => {
-    const [textToCopy, setTextToCopy] = useState("");
-    const [isCopied, setCopied] = useClipboard(textToCopy, {
-      successDuration: 1000
-    });
-  
-    const startListening = () =>
-      SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
-  
-    const {
-      transcript,
-      browserSupportsSpeechRecognition,
-      listening,
-      resetTranscript
-    } = useSpeechRecognition();
-  
-    if (!browserSupportsSpeechRecognition) {
-      return null;
+  useSpeechRecognition,
+} from "react-speech-recognition";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPaperPlane,
+  faPlay,
+  faStop,
+  faEraser,
+  faMicrophone,
+} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+
+const Speech = ({ addMessage }) => {
+  const [textToCopy, setTextToCopy] = useState("hello");
+  const {
+    transcript,
+    browserSupportsSpeechRecognition,
+    listening,
+    resetTranscript,
+  } = useSpeechRecognition();
+
+  const startListening = () =>
+    SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
+
+  const sendChatToBackend = async () => {
+    addMessage(transcript);
+    resetTranscript();
+    try {
+      // Send a POST request to the backend with the transcript as the chat message
+      await axios.post("/endpoint", { message: transcript });
+      // Add the transcript as a chat message
+      addMessage(transcript);
+      // Clear the transcript
+      resetTranscript();
+    } catch (error) {
+      console.log("Error sending answer to backend:", error);
     }
-  
-    console.log(textToCopy);
-    return (
-      <>
-        <div className="container">
-          <br />
-  
-          <div
-            className="main-content"
-            style={{ height: "100px", border: "1px solid" }}
-            onClick={() => setTextToCopy(transcript)}
-          >
-            {transcript}
-          </div>
-  
-          <div className="btn-style">
-            <button onClick={setCopied}>{isCopied ? "Copied!" : "Copy"}</button>
-            <button onClick={startListening}>Start</button>
-            <button onClick={SpeechRecognition.stopListening}>Stop</button>
-            <button onClick={resetTranscript}>Reset</button>
-          </div>
-          <p>Microphone: {listening ? "on" : "off"}</p>
-        </div>
-      </>
-    );
   };
-  
-  export default Speech;
-  
+
+  if (!browserSupportsSpeechRecognition) {
+    return null;
+  }
+
+  return (
+    
+    <div className="relative bottom-14 h-48 flex items-center justify-center bg-gradient-to-t from-aiChatColor">
+      <br />
+
+      <div
+        contentEditable={true}
+        className="w-2/4 h-10 px-4 text-[#fff]  bg-aiChatColor rounded-lg "
+        onClick={() => setTextToCopy(transcript)}
+      >
+        {transcript}
+      </div>
+
+      {transcript ? (
+        <button
+          className="ml-2 px-4 py-2 rounded-md bg-[#19C37D]"
+          onClick={sendChatToBackend}
+        >
+          <FontAwesomeIcon icon={faPaperPlane} />
+        </button>
+      ) : (
+        <button className="ml-2 px-4 py-2 ">
+          <FontAwesomeIcon icon={faPaperPlane} style={{ color: "white" }} />
+        </button>
+      )}
+      <button
+        onClick={startListening}
+        className="ml-2 px-4 py-2"
+      >
+        <FontAwesomeIcon icon={faPlay} style={{ color: "white" }} />
+      </button>
+      <button
+        onClick={SpeechRecognition.stopListening}
+        className="ml-2 px-4 py-2"
+      >
+        <FontAwesomeIcon icon={faStop} style={{ color: "white" }} />
+      </button>
+      <button
+        onClick={resetTranscript}
+        className="ml-2 px-4 py-2"
+      >
+        <FontAwesomeIcon icon={faEraser} style={{ color: "white" }} />
+      </button>
+
+      <p className="ml-2 px-4 py-2">
+        {listening ? (
+          <FontAwesomeIcon
+            icon={faMicrophone}
+            beatFade
+            style={{ color: "#d80b0b" }}
+          />
+        ) : null}
+      </p>
+    </div>
+  );
+};
+
+export default Speech;
