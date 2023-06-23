@@ -1,9 +1,12 @@
 
 import jwt from "jsonwebtoken"
-
-const Validate=(req,res,next)=>{
+import BlacklistModel from "../model/blacklist.js";
+const Validate=async(req,res,next)=>{
     const token=req.body.token
-    console.log(token);
+    const IsExpired=await BlacklistModel.findOne({token})
+    if(IsExpired){
+       return res.status(200).json({"msg":"Please Login Again"})
+    }
     if(token){
         const decoded=jwt.verify(token,"masai")
         console.log(decoded);
@@ -11,7 +14,7 @@ const Validate=(req,res,next)=>{
         req.body.token=""
             next()
         } else {
-            res.status(400).json({"msg":"Please Login First"})
+           return res.status(200).json({"msg":"Please Login First"})
         }
   
 }
