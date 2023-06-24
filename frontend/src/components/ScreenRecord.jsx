@@ -1,11 +1,12 @@
 import { useRef } from "react";
-import {useNavigate} from "react-router-dom"
+import { BsFillRecordBtnFill } from "react-icons/bs";
+import { AiTwotoneStop } from "react-icons/ai";
+
 const data = [];
 let stream;
 
 export default function ScreenRecord() {
   const screenRef = useRef();
-  const navigate=useNavigate()
 
   const shareScreen = async () => {
     try {
@@ -29,7 +30,6 @@ export default function ScreenRecord() {
         mr.onstop = (c) => {
           console.log('cEvent', c);
           const videoUrl = URL.createObjectURL(new Blob(data, { type: 'video/mp4' }));
-          navigate("/sample")
           alert(videoUrl);
           screenRef.current.src = videoUrl;
         };
@@ -43,7 +43,20 @@ export default function ScreenRecord() {
 
   return (
     <div>
-      <button onClick={shareScreen} className="border p-2 hover:bg-[#0f172a] hover:text-[#fff] mr-8 cursor-pointer">Screen Share</button>
+      
+      <header>
+        <iframe width={'100%'} height={'20%'} ref={screenRef}  title="Screen Recording" allowFullScreen allow="autoplay" />
+      </header>
+
+      <div className='border-b-4 '></div>
+      <div className="flex justify-between mt-2 mb-2 p-1">
+        <h1 className="text-[#fff]">Wanted to Record</h1>
+        <h1 className="text-[red]">new</h1>
+      </div>
+
+      <button onClick={shareScreen} className=" p-2 text-[blue] cursor-pointer">
+         <BsFillRecordBtnFill />
+         </button>
       <button onClick={async () => {
         try {
           let tracks = stream.getTracks();
@@ -55,12 +68,11 @@ export default function ScreenRecord() {
           alert("Nothing to record");
         }
       }}
-        className="border p-2 hover:bg-[#0f172a] hover:text-[#fff] cursor-pointer"
-      >Screen Pause</button>
+        className="text-[red] p-2 cursor-pointer"
+      >
+        <AiTwotoneStop />
 
-      <header>
-        <iframe width={'20%'} height={'20%'} ref={screenRef} className="border" title="Screen Recording" allowFullScreen allow="autoplay" />
-      </header>
+      </button>
     </div>
   );
 }

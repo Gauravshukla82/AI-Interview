@@ -9,7 +9,7 @@ const Footer = ()=>{
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <a href="#" className="text-white font-semibold text-lg">
-                innov8X
+                innov8
               </a>
               <div className="ml-4">
                 <a href="#" className="text-gray-400 hover:text-white">
