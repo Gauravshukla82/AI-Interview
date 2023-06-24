@@ -13,10 +13,7 @@ const AllRoutes = () => {
                 <Route path='/chat' element={<Chat />}/>
                 <Route path='/signin' element={<Login />}/>
                 <Route path='/signup' element={<Register />}/>
-               
-                
             </Routes>
-        
     )
 }
 

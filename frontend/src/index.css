@@ -10,3 +10,8 @@
     font-family: "Raleway", sans-serif;
   }
 }
+@layer utilities{
+  .chat-messages::-webkit-scrollbar {
+    display: none;
+}
+}

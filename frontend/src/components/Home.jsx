@@ -1,9 +1,10 @@
 import React from 'react'
 import Navbar from './Navbar'
 
+
 const Home = () => {
   return (
-    <div className='bg-stone-950 text-white font-mono'>
+    <div className='bg-[#0f172a] text-[#fff] font-mono '>
     <Navbar/>
     <div>
       <img src="https://images.openai.com/blob/971cb9d4-66e4-46b0-95d8-f3b57931b08e/stangel-2022-0052.jpg?trim=0,0,0,0&width=1400" alt="asim" />

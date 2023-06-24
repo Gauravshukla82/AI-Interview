@@ -14,7 +14,57 @@ const openai = new OpenAIApi(configuration);
 const AIroutes = express()
 
 AIroutes.use(express.json())
-
+/**
+ * @swagger
+ * https://giddy-shirt-eel.cyclic.app/interview/feedback:
+ *   post:
+ *     summary: Receive feedback
+ *     description: Receive feedback for a question and answer
+ *     tags:
+ *       - Feedback
+ *     parameters:
+ *       - in: body
+ *         name: feedback
+ *         description: Feedback data
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             question:
+ *               type: string
+ *               description: The question.
+ *             answer:
+ *               type: string
+ *               description: The answer.
+ *             token:
+ *               type: string
+ *               description: The user's token.
+ *         example:
+ *           question: "what is html?"
+ *           answer: "html is..."
+ *           token: "token"
+ *     responses:
+ *       200:
+ *         description: Feedback sent successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             bot:
+ *               type: string
+ *               description: The response from the bot.
+ *           example:
+ *             bot: "The bot's response"
+ *       500:
+ *         description: Internal server error
+ *         schema:
+ *           type: object
+ *           properties:
+ *             error:
+ *               type: string
+ *               description: The error message.
+ *           example:
+ *             error: "Something went wrong"
+ */
 
 AIroutes.post('/feedback',Validate, async (req, res) => {
     try {
@@ -42,7 +92,53 @@ AIroutes.post('/feedback',Validate, async (req, res) => {
         res.status(500).send(error || 'Something went wrong');
     }
 })
-
+/**
+ * @swagger
+ * https://giddy-shirt-eel.cyclic.app/interview/questions:
+ *   post:
+ *     summary: Get questions
+ *     description: Get a specific number of questions related to a specific technology
+ *     tags:
+ *       - Questions
+ *     parameters:
+ *       - in: body
+ *         name: questions
+ *         description: Questions data
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             tech:
+ *               type: string
+ *               description: The technology.
+ *             number:
+ *               type: number
+ *               description: The number of questions to retrieve.
+ *         example:
+ *           tech: "JavaScript"
+ *           number: 10
+ *     responses:
+ *       200:
+ *         description: Questions retrieved successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             bot:
+ *               type: string
+ *               description: The response from the bot containing the questions.
+ *           example:
+ *             bot: "Question 1\nQuestion 2\nQuestion 3"
+ *       500:
+ *         description: Internal server error
+ *         schema:
+ *           type: object
+ *           properties:
+ *             error:
+ *               type: string
+ *               description: The error message.
+ *           example:
+ *             error: "Something went wrong"
+ */
 AIroutes.post('/questions',Validate, async (req, res) => {
     try {
         const { tech, number } = req.body;
@@ -67,6 +163,57 @@ AIroutes.post('/questions',Validate, async (req, res) => {
         res.status(500).send(error || 'Something went wrong');
     }
 })
+/**
+ * @swagger
+ * https://giddy-shirt-eel.cyclic.app/interview/allfeedbacks:
+ *   get:
+ *     summary: Get all feedbacks
+ *     description: Retrieve all feedbacks for a specific email
+ *     tags:
+ *       - Feedbacks
+ *     parameters:
+ *       - in: query
+ *         name: email
+ *         description: The user's email.
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: token
+ *     responses:
+ *       200:
+ *         description: Feedbacks retrieved successfully
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/Feedback'
+ *       500:
+ *         description: Internal server error
+ *         schema:
+ *           type: object
+ *           properties:
+ *             error:
+ *               type: string
+ *               description: The error message.
+ *           example:
+ *             error: "Something went wrong"
+ *
+ * definitions:
+ *   Feedback:
+ *     type: object
+ *     properties:
+ *       question:
+ *         type: string
+ *         description: The question.
+ *       answer:
+ *         type: string
+ *         description: The answer.
+ *       feedback:
+ *         type: string
+ *         description: The feedback given.
+ *       email:
+ *         type: string
+ *         description: The user's email.
+ */
 
 AIroutes.get("/allfeedbacks",async(req,res)=>{
     try {

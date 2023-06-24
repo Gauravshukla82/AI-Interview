@@ -1,9 +1,11 @@
+
 import axios from "axios";
 import React, { useState } from "react";
 import { FaMicrosoft, FaApple, FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { NavLink } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
+
 
 const Register = () => {
   const [email, setEmail] = useState("");

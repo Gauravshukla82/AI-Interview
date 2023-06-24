@@ -4,22 +4,22 @@ import { FiArrowUpRight } from "react-icons/fi";
 const Navbar = () => {
     
   return (
-    <div className='sticky top-0 z-50 flex p-5 items-center bg-stone-950 text-white' >
+    <div className='sticky top-0 z-50 flex p-5 items-center bg-[#0f172a] text-[#fff]' >
       <div className='basis-1/6 logo'>
         INNOV8X
       </div>
       <div className='flex  basis-1/6 space-x-4  '>
-        <select className=" bg-stone-950 text-white hover:underline cursor-pointer">
+        <select className="  bg-[#0f172a] text-[#fff] hover:underline cursor-pointer">
     <option value="">Research</option>        
     <option value="">Overview</option>        
     <option value="">Index</option>        
         </select>
-        <select className=" bg-stone-950 text-white hover:underline cursor-pointer">
+        <select className="  bg-[#0f172a] text-[#fff] hover:underline cursor-pointer">
     <option value="">Products</option>        
     <option value="">Overview</option>        
     <option value="">Index</option>        
     </select>
-    <select className=" bg-stone-950 text-white  hover:underline cursor-pointer">
+    <select className="  bg-[#0f172a] text-[#fff]  hover:underline cursor-pointer">
     <option value="">Developer</option>        
     <option value="">Overview</option>        
     <option value="">Index</option>        
@@ -27,7 +27,7 @@ const Navbar = () => {
 
     <p className='hover:border-b cursor-pointer'>Safety</p>
 
-    <select className=" bg-stone-950 text-white hover:underline cursor-pointer ">
+    <select className="  bg-[#0f172a] text-[#fff] hover:underline cursor-pointer ">
     <option value="">Company</option>        
     <option value="">Overview</option>        
     <option value="">Index</option>        
@@ -39,7 +39,7 @@ const Navbar = () => {
         <p className='hover:border-b cursor-pointer'>Log in</p>
        <h4 className='mt-1'> <FiArrowUpRight/></h4>
         </div>
-        <div className='flex border p-2 hover:bg-white hover:text-stone-950 cursor-pointer'>
+        <div className='flex border p-2 hover:bg-[#fff] hover:text-[#0f172a] cursor-pointer'>
         <p>Sign up</p> 
         <h4 className='mt-1'><FiArrowUpRight/></h4>
 
