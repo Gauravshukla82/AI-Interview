@@ -4,8 +4,8 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa"
 
 const Footer = ()=>{
     return (
-        <footer className="bg-gray-900 text-gray-400">
-        <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <footer className="bg-[#0f172a] text-[#fff]">
+        <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 ">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <a href="#" className="text-white font-semibold text-lg">
@@ -59,6 +59,9 @@ const Footer = ()=>{
           </p>
         </div>
       </footer>
+      // <div className="text-white bg-red">
+      //   <p>footer section</p>
+      // </div>
     )
 }
 

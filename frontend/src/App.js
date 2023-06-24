@@ -1,16 +1,13 @@
 
-import Footer from "./components/Footer";
+
+
 import { AllRoutes } from "./routes/AllRoutes";
-
-
-
 
 function App() {
   return (
-    <div >
-      <AllRoutes />
-      <Footer />
+    <div className="App">
 
+      <AllRoutes />
 
     </div>
   );
