@@ -2,6 +2,7 @@ import express from 'express'
 import AIroutes from "./routes/openai.js"
 import cors from 'cors'
 const app=express()
+import GithubRoutes from './routes/github.js'
 import connection from './DataBase/DB.js'
 import Authorization from './routes/UserRegister.js'
 import swaggerJSDoc from 'swagger-jsdoc'
@@ -25,6 +26,7 @@ app.use(cors())
 
 app.use("/interview",AIroutes)
 app.use("/auth",Authorization)
+app.use("/github",GithubRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.listen(8080, () => {
   try {
