@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Speech from './Speech';
 import axios from 'axios';
+import ScreenRecord from './ScreenRecord';
+import Mid from './Mid';
 
 const Chat = () => {
   const [chatMessages, setChatMessages] = useState([]);
@@ -25,8 +27,17 @@ const Chat = () => {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <div className="w-1/5 h-screen bg-sideBarColor">
+      <div className="w-1/5 h-screen bg-sideBarColor flex flex-col">
         <h1 className="text-3xl text-[#fff] ml-20 mt-5 font-signature">Dashboard</h1>
+        <div className="mt-auto">
+      <Mid/>
+        </div>
+
+        <div className="mt-auto" >
+          <ScreenRecord/>
+        </div>
+
+
       </div>
 
       {/* Chat Window */}
