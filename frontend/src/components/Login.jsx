@@ -1,6 +1,6 @@
 
-import React, { useState } from "react";
-import { FaMicrosoft, FaApple, FaGithub } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaApple, FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,9 +11,10 @@ import Cookies from "js-cookie";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [gitEmail,setGitEmail] = useState("")
   const toast = useToast();
   const navigate = useNavigate()
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     const loginData = {
@@ -54,6 +55,45 @@ const Login = () => {
     setEmail("");
     setPassword("");
   };
+
+  const handleLoginGithub = ()=>{
+    
+    axios
+      .get("https://giddy-shirt-eel.cyclic.app/github/login")
+      .then((res) => {
+        console.log("gitauth",res);
+      })
+      .catch((err) => {
+        // toast({
+        //   position: "top",
+        //   title: `${err.response.data.msg}`,
+        //   status: "error",
+        //   duration: 1000,
+        //   isClosable: true,
+        // });
+        console.log(err);
+      });
+
+
+      axios
+      .post("https://giddy-shirt-eel.cyclic.app/github/token")
+      .then((res) => {
+        console.log("gitauthtokennn",res);
+      })
+      .catch((err) => {
+        // toast({
+        //   position: "top",
+        //   title: `${err.response.data.msg}`,
+        //   status: "error",
+        //   duration: 1000,
+        //   isClosable: true,
+        // });
+        console.log(err);
+      });
+  }
+
+ 
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-xs">
@@ -125,7 +165,7 @@ const Login = () => {
             </div>
             <div className="flex items-center justify-center border mb-3">
               <FaGithub className="mr-2" />
-              <button className="py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
+              <button className="py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2" onClick={handleLoginGithub}>
                 Github
               </button>
             </div>
