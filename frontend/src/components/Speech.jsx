@@ -27,16 +27,16 @@ const Speech = ({ addMessage }) => {
   const sendChatToBackend = async () => {
     addMessage(transcript);
     resetTranscript();
-    try {
-      // Send a POST request to the backend with the transcript as the chat message
-      await axios.post("/endpoint", { message: transcript });
-      // Add the transcript as a chat message
-      addMessage(transcript);
-      // Clear the transcript
-      resetTranscript();
-    } catch (error) {
-      console.log("Error sending answer to backend:", error);
-    }
+    // try {
+    //   // Send a POST request to the backend with the transcript as the chat message
+    //   await axios.post("/endpoint", { message: transcript });
+    //   // Add the transcript as a chat message
+    //   addMessage(transcript);
+    //   // Clear the transcript
+    //   resetTranscript();
+    // } catch (error) {
+    //   console.log("Error sending answer to backend:", error);
+    // }
   };
 
   if (!browserSupportsSpeechRecognition) {
@@ -49,7 +49,7 @@ const Speech = ({ addMessage }) => {
       <br />
 
       <div
-        contentEditable={true}
+        
         className="w-2/4 h-10 px-4 text-[#fff]  bg-aiChatColor rounded-lg "
         onClick={() => setTextToCopy(transcript)}
       >
