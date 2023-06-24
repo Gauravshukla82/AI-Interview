@@ -2,26 +2,27 @@
 import React, { useState } from "react";
 import { FaMicrosoft, FaApple, FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
-
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const loginData = {
       email,
-      pass: password,
+      password,
     };
 
     axios
-      .post(`http://localhost:8080/users/login`, loginData)
+      .post(`https://giddy-shirt-eel.cyclic.app/auth/login`, loginData)
       .then((res) => {
         toast({
           position: "top",
@@ -31,7 +32,11 @@ const Login = () => {
           isClosable: true,
         });
 
-        localStorage.setItem("token", res.data.token);
+        // Store token in cookies
+        Cookies.set("token", res.data.token);
+        
+        navigate("/chat")
+
         console.log("token", res.data.token);
         console.log(res.data);
       })
@@ -101,7 +106,7 @@ const Login = () => {
           <div className="text-center mt-4">
             <p className="text-sm">
               Don't have an account?{" "}
-              <NavLink to="/register" style={{ color: "#10A37F" }}>
+              <NavLink to="/signup" style={{ color: "#10A37F" }}>
                 Sign up
               </NavLink>
             </p>

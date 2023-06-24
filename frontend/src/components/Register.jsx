@@ -25,11 +25,11 @@ const Register = () => {
 
     const regData = {
       email,
-      pass: password,
+      password,
     };
 
     axios
-      .post(`http://localhost:8080/users/register`, regData)
+      .post(`https://giddy-shirt-eel.cyclic.app/auth/signup`, regData)
       .then((res) => {
         toast({
           position: "top",
@@ -38,17 +38,19 @@ const Register = () => {
           duration: 1000,
           isClosable: true,
         });
+        console.log(res.data);
+
         console.log(res.data.msg);
       })
       .catch((err) => {
         toast({
           position: "top",
-          title: `${"Something went wrong"}`,
+          title: `${err.response.data.error}`,
           status: "error",
           duration: 1000,
           isClosable: true,
         });
-        console.log(err);
+        console.log(err.response);
 
         setEmail("");
         setPassword("");
@@ -109,7 +111,7 @@ const Register = () => {
           <div className="text-center mt-4">
             <p className="text-sm">
               Already have an account?{" "}
-              <NavLink to="/login" style={{ color: "#10A37F" }}>
+              <NavLink to="/signin" style={{ color: "#10A37F" }}>
                 Login
               </NavLink>
             </p>
