@@ -1,6 +1,5 @@
 
 import Footer from "./components/Footer";
-import Home from "./components/Home";
 import { AllRoutes } from "./routes/AllRoutes";
 
 
@@ -8,8 +7,7 @@ import { AllRoutes } from "./routes/AllRoutes";
 
 function App() {
   return (
-    <div className="App">
-
+    <div >
       <AllRoutes />
       <Footer />
 
