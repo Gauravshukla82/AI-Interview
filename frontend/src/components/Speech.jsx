@@ -27,16 +27,6 @@ const Speech = ({ addMessage }) => {
   const sendChatToBackend = async () => {
     addMessage(transcript);
     resetTranscript();
-    // try {
-    //   // Send a POST request to the backend with the transcript as the chat message
-    //   await axios.post("/endpoint", { message: transcript });
-    //   // Add the transcript as a chat message
-    //   addMessage(transcript);
-    //   // Clear the transcript
-    //   resetTranscript();
-    // } catch (error) {
-    //   console.log("Error sending answer to backend:", error);
-    // }
   };
 
   if (!browserSupportsSpeechRecognition) {
@@ -44,12 +34,10 @@ const Speech = ({ addMessage }) => {
   }
 
   return (
-    
     <div className="relative bottom-14 h-48 flex items-center justify-center bg-gradient-to-t from-aiChatColor">
       <br />
 
       <div
-        
         className="w-2/4 h-10 px-4 text-[#fff]  bg-aiChatColor rounded-lg "
         onClick={() => setTextToCopy(transcript)}
       >
@@ -68,10 +56,7 @@ const Speech = ({ addMessage }) => {
           <FontAwesomeIcon icon={faPaperPlane} style={{ color: "white" }} />
         </button>
       )}
-      <button
-        onClick={startListening}
-        className="ml-2 px-4 py-2"
-      >
+      <button onClick={startListening} className="ml-2 px-4 py-2">
         <FontAwesomeIcon icon={faPlay} style={{ color: "white" }} />
       </button>
       <button
@@ -80,10 +65,7 @@ const Speech = ({ addMessage }) => {
       >
         <FontAwesomeIcon icon={faStop} style={{ color: "white" }} />
       </button>
-      <button
-        onClick={resetTranscript}
-        className="ml-2 px-4 py-2"
-      >
+      <button onClick={resetTranscript} className="ml-2 px-4 py-2">
         <FontAwesomeIcon icon={faEraser} style={{ color: "white" }} />
       </button>
 
