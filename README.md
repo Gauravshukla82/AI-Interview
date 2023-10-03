@@ -1,5 +1,5 @@
 
-# Innov8
+# AI Interview
 
 Online GPT-bot for interview preparation
 
