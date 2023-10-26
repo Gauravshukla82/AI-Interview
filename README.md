@@ -2,6 +2,7 @@
 # AI Interview
 
 Online GPT-bot for interview preparation
+AI interview is an AI powered online platform which assists users in interview preparation and progress tracking.
 
 
 
